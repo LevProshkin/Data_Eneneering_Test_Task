@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_container
+    environment:
+      - POSTGRES_HOST=postgres 
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres #enter your user
+      - POSTGRES_PASSWORD=your_password #enter your password
+      - POSTGRES_DB=inforce_task #enter your db
+    depends_on:
+      - postgres
+    volumes:
+      - ./generated_users.csv:/app/generated_users.csv  
+    ports:
+      - "8000:8000"  
+    command: ["bash", "-c", "python /app/generated_users.py && tail -f /dev/null"]
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres #enter your user
+      POSTGRES_PASSWORD: your_password #enter your password
+      POSTGRES_DB: inforce_task #enter your db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: {}
