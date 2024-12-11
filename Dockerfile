@@ -16,18 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application files into the container
 COPY . /app/
 
-# Set environment variables for PostgreSQL
-ENV POSTGRES_HOST=postgres
-ENV POSTGRES_PORT=5432
-#enter your user
-ENV POSTGRES_USER=postgres
-#enter your password
-ENV POSTGRES_PASSWORD=your_password 
-#enter your db
-ENV POSTGRES_DB=inforce_task
-
-# Debugging step to verify files
-RUN ls /app
+# Set environment variables (use actual values or `.env` for secrets)
+ENV PYTHONUNBUFFERED=1
 
 # Run the application
 CMD ["bash", "-c", "python /app/generated_users.py && tail -f /dev/null"]

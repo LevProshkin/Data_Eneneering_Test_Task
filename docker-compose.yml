@@ -25,7 +25,7 @@ services:
     container_name: postgres_container
     environment:
       POSTGRES_USER: postgres #enter your user
-      POSTGRES_PASSWORD: your_password #enter your password
+      POSTGRES_PASSWORD: your_password  #enter your password
       POSTGRES_DB: inforce_task #enter your db
     ports:
       - "5432:5432"
